@@ -19,17 +19,20 @@ public class NinjaModel {
     @Column(name="id")
     private Long id;
 
-    @Column(unique = true)
-    private String email;
-
     @Column(name="nome")
     private String nome;
 
-    @Column(name = "img_url")
-    private String imgUrl;
-
     @Column(name = "idade")
     private int idade;
+
+    @Column (name = "rank")
+    private String rank;
+
+    @Column(unique = true)
+    private String email;
+
+    @Column(name = "img_url")
+    private String imgUrl;
 
     // Um ninja só pode ter uma missão
     @ManyToOne
@@ -82,5 +85,13 @@ public class NinjaModel {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getRank() {
+        return rank;
+    }
+
+    public void setRank(String rank) {
+        this.rank = rank;
     }
 }
