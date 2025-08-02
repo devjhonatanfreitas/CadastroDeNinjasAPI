@@ -26,6 +26,4 @@ public class MissoesController {
     public String deletarMissao(){
         return "Missao deletada com sucesso";
     }
-
-
 }
