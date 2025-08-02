@@ -1,3 +1,6 @@
 2025-08-02 11:38:50.059994-03:00 jdbc[13]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "[*]TB_MISSOES"; expected "TRUNCATE"; SQL statement:
 TB_MISSOES [42001-232]
+2025-08-02 12:20:27.235026-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "SELECT*[*]FROMTB_CADASTRO"; SQL statement:
+SELECT*FROMTB_CADASTRO [42000-232]
