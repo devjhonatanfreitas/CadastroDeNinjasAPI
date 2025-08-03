@@ -1,50 +1,33 @@
 package dev.java10x.CadastroDeNinjas.Ninjas;
 
 import dev.java10x.CadastroDeNinjas.Missoes.MissoesModel;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
-@Table(name="tb_cadastro")
-@NoArgsConstructor
-@AllArgsConstructor
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 
-public class NinjaModel {
+public class NinjaDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
     private Long id;
-
-    @Column(name="nome")
+    private String email;
     private String nome;
-
-    @Column(name = "idade")
+    private String imgUrl;
     private int idade;
-
-    @Column (name = "rank")
+    private MissoesModel missoes;
     private String rank;
 
-    @Column(unique = true)
-    private String email;
 
-    @Column(name = "img_url")
-    private String imgUrl;
+    //Getters e Setters
 
-    // Um ninja só pode ter uma missão
-    @ManyToOne
-    @JoinColumn(name="missoes_id") // foreign key
-    private MissoesModel missoes;
-
-    public String getEmail() {
-        return email;
+    public Long getId() {
+        return id;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -53,6 +36,14 @@ public class NinjaModel {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getImgUrl() {
@@ -77,14 +68,6 @@ public class NinjaModel {
 
     public void setMissoes(MissoesModel missoes) {
         this.missoes = missoes;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getRank() {
