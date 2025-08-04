@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("missoes")
@@ -13,6 +14,8 @@ import java.util.List;
 public class MissoesController {
 
     private MissoesService missoesService;
+    private MissoesRepository missoesRepository;
+    private MissoesMapper missoesMapper;
 
     public MissoesController(MissoesService missoesService) {
         this.missoesService = missoesService;
@@ -32,14 +35,29 @@ public class MissoesController {
     }
 
     //TODO
-    @PutMapping("/alterar")
-    public String alterarMissao(){
-        return "Missao alterada com sucesso";
+    @PutMapping("/alterar/{id}")
+    public ResponseEntity<?> atualizarMissao(@PathVariable Long id, @RequestBody MissoesDTO missaoAtualizada){
+
+        MissoesDTO missao = missoesService.atualizarMissao(id, missaoAtualizada);
+        if(missao !=null){
+            return ResponseEntity.ok(missao);
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("Missão com o ID "+id+" não encontrada.");
+        }
+
     }
 
     //TODO
-    @DeleteMapping("/deletar")
-    public String deletarMissao(){
-        return "Missao deletada com sucesso";
+    @DeleteMapping("/deletar/{id}")
+    public ResponseEntity<String> deletarMissao(@PathVariable Long id){
+
+        if(missoesService.listarMissoes()!=null) {
+            missoesService.deletarMissao(id);
+            return ResponseEntity.ok("Missão com o ID " + id + " deletada com sucesso.");
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("A missão de ID "+id+" não foi encontrada.");
+        }
     }
 }

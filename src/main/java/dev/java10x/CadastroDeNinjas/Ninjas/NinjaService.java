@@ -17,8 +17,6 @@ public class NinjaService {
         this.ninjaMapper = ninjaMapper;
     }
 
-    // Listar todos os ninjas
-
     public List <NinjaDTO> listarNinjas(){
         List<NinjaModel> ninjas = ninjaRepository.findAll();
         return ninjas.stream()

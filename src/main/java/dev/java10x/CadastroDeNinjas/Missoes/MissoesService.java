@@ -5,6 +5,7 @@ import dev.java10x.CadastroDeNinjas.Ninjas.NinjaModel;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -26,9 +27,31 @@ public class MissoesService {
     }
 
     public MissoesDTO criarMissao(MissoesDTO missoesDTO){
-        MissoesModel missao = missoesMapper.map(missoesDTO);
-        missao = missoesRepository.save(missao);
-        return missoesMapper.map(missao);
+
+        MissoesModel novaMissao = new MissoesModel();
+        novaMissao.setNome(missoesDTO.getNome());
+        novaMissao.setDificuldade(missoesDTO.getDificuldade());
+
+        MissoesModel missaoSalva = missoesRepository.save(novaMissao);
+
+        return missoesMapper.map(missaoSalva);
     }
 
+    public void deletarMissao(Long id){
+        missoesRepository.deleteById(id);
+    }
+
+    public MissoesDTO atualizarMissao(Long id, MissoesDTO missoesDTO){
+
+        Optional<MissoesModel> missaoExistente = missoesRepository.findById(id);
+        if (missaoExistente.isPresent()){
+            MissoesModel missaoAtualizada = missoesMapper.map(missoesDTO);
+            missaoAtualizada.setId(id);
+            MissoesModel missaoSalva = missoesRepository.save(missaoAtualizada);
+            return missoesMapper.map(missaoSalva);
+        }
+        return null;
+    }
 }
+
+
