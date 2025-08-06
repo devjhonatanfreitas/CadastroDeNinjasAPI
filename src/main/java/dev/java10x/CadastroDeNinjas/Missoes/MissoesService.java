@@ -28,13 +28,10 @@ public class MissoesService {
 
     public MissoesDTO criarMissao(MissoesDTO missoesDTO){
 
-        MissoesModel novaMissao = new MissoesModel();
-        novaMissao.setNome(missoesDTO.getNome());
-        novaMissao.setDificuldade(missoesDTO.getDificuldade());
+        MissoesModel missao = missoesMapper.map(missoesDTO);
+        missao = missoesRepository.save(missao);
+        return missoesMapper.map(missao);
 
-        MissoesModel missaoSalva = missoesRepository.save(novaMissao);
-
-        return missoesMapper.map(missaoSalva);
     }
 
     public void deletarMissao(Long id){
