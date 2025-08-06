@@ -13,9 +13,7 @@ import java.util.Optional;
 
 public class MissoesController {
 
-    private MissoesService missoesService;
-    private MissoesRepository missoesRepository;
-    private MissoesMapper missoesMapper;
+    final private MissoesService missoesService;
 
     public MissoesController(MissoesService missoesService) {
         this.missoesService = missoesService;

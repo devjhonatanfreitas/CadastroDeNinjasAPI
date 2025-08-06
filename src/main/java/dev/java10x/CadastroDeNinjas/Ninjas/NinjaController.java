@@ -10,7 +10,7 @@ import java.util.List;
 
 public class NinjaController {
 
-    private NinjaService ninjaService;
+    final private NinjaService ninjaService;
 
     public NinjaController(NinjaService ninjaService) {
         this.ninjaService = ninjaService;
