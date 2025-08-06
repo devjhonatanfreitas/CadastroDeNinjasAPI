@@ -346,3 +346,21 @@ Caused by: org.h2.jdbc.JdbcSQLInvalidAuthorizationSpecException: Wrong user name
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:522)
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489)
 	... 50 more
+2025-08-06 16:08:02.639754-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "IMG_URL CHARACTER VARYING(255)": "'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxASEhIQEA8VFRUVFRUV... (8347)"; SQL statement:
+UPDATE "PUBLIC"."TB_CADASTRO" SET "ID"=? ,"EMAIL"=? ,"IDADE"=? ,"IMG_URL"=? ,"NOME"=? ,"MISSOES_ID"=? ,"RANK"=?  WHERE "ID"=? [22001-232]
+2025-08-06 16:08:02.641748-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "IMG_URL CHARACTER VARYING(255)": "'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxASEhIQEA8VFRUVFRUV... (8347)"; SQL statement:
+UPDATE "PUBLIC"."TB_CADASTRO" SET "ID"=? ,"EMAIL"=? ,"IDADE"=? ,"IMG_URL"=? ,"NOME"=? ,"MISSOES_ID"=? ,"RANK"=?  WHERE "ID"=? [22001-232]
+2025-08-06 16:08:23.116915-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "IMG_URL CHARACTER VARYING(255)": "'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxASEhIQEA8VFRUVFRUV... (8347)"; SQL statement:
+UPDATE "PUBLIC"."TB_CADASTRO" SET "ID"=? ,"EMAIL"=? ,"IDADE"=? ,"IMG_URL"=? ,"NOME"=? ,"MISSOES_ID"=? ,"RANK"=?  WHERE "ID"=? [22001-232]
+2025-08-06 16:08:23.116915-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "IMG_URL CHARACTER VARYING(255)": "'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxASEhIQEA8VFRUVFRUV... (8347)"; SQL statement:
+UPDATE "PUBLIC"."TB_CADASTRO" SET "ID"=? ,"EMAIL"=? ,"IDADE"=? ,"IMG_URL"=? ,"NOME"=? ,"MISSOES_ID"=? ,"RANK"=?  WHERE "ID"=? [22001-232]
+2025-08-06 16:08:43.614091-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "IMG_URL CHARACTER VARYING(255)": "'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMSEhUSExMVFhUVFRgX... (9339)"; SQL statement:
+UPDATE "PUBLIC"."TB_CADASTRO" SET "ID"=? ,"EMAIL"=? ,"IDADE"=? ,"IMG_URL"=? ,"NOME"=? ,"MISSOES_ID"=? ,"RANK"=?  WHERE "ID"=? [22001-232]
+2025-08-06 16:08:43.614091-03:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "IMG_URL CHARACTER VARYING(255)": "'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBxMSEhUSExMVFhUVFRgX... (9339)"; SQL statement:
+UPDATE "PUBLIC"."TB_CADASTRO" SET "ID"=? ,"EMAIL"=? ,"IDADE"=? ,"IMG_URL"=? ,"NOME"=? ,"MISSOES_ID"=? ,"RANK"=?  WHERE "ID"=? [22001-232]
