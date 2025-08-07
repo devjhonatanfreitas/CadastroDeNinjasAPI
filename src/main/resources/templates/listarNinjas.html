@@ -4,73 +4,305 @@
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
   <title>Tabela de Ninjas</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        margin: 0;
-        padding: 20px;
+      font-family: 'Noto Sans JP', sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      min-height: 100vh;
+      padding: 20px;
+      position: relative;
+      overflow-x: auto;
+    }
+
+    /* Efeito de particulas ninja no fundo */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        radial-gradient(2px 2px at 20px 30px, #ffffff15, transparent),
+        radial-gradient(2px 2px at 40px 70px, #ff6b3515, transparent),
+        radial-gradient(1px 1px at 90px 40px, #ffd70015, transparent),
+        radial-gradient(1px 1px at 130px 80px, #00ff4115, transparent);
+      background-repeat: repeat;
+      background-size: 200px 150px;
+      animation: float 20s infinite linear;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes float {
+      0% { transform: translateX(0) translateY(0); }
+      100% { transform: translateX(-200px) translateY(-150px); }
     }
 
     h1 {
-        text-align: center;
-        color: #333;
+      font-family: 'Cinzel', serif;
+      font-size: 3.5rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 40px;
+      background: linear-gradient(45deg, #ff6b35, #ffd700, #ff6b35);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 3s ease-in-out infinite;
+      text-shadow: 0 0 30px rgba(255, 107, 53, 0.3);
+      position: relative;
+      z-index: 2;
+    }
+
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    .btn-adicionar {
+      display: inline-block;
+      background: linear-gradient(135deg, #ff6b35, #ff8c42);
+      color: white;
+      text-decoration: none;
+      padding: 15px 30px;
+      border-radius: 25px;
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+      position: relative;
+      z-index: 2;
+      border: 2px solid transparent;
+    }
+
+    .btn-adicionar:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(255, 107, 53, 0.4);
+      background: linear-gradient(135deg, #ff8c42, #ff6b35);
+      border-color: #ffd700;
+    }
+
+    .btn-adicionar:active {
+      transform: translateY(-1px);
     }
 
     table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 20px 0;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        background-color: #fff;
+      width: 100%;
+      border-collapse: collapse;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 2;
+      border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    th, td {
-        padding: 12px;
-        text-align: left;
-        border-bottom: 1px solid #ddd;
+    thead {
+      background: linear-gradient(135deg, #ff6b35, #ff8c42);
+      position: relative;
+    }
+
+    thead::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 20"><path d="M0,0 Q25,10 50,0 T100,0 L100,20 L0,20 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+      pointer-events: none;
     }
 
     th {
-        background-color: #4CAF50;
-        color: white;
+      padding: 20px 15px;
+      font-weight: 700;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.9rem;
+      text-align: center;
+      position: relative;
+      z-index: 1;
     }
 
-    tr:hover {
-        background-color: #f1f1f1;
+    tbody tr {
+      transition: all 0.3s ease;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    img {
-        border-radius: 50%;
+    tbody tr:hover {
+      background: rgba(255, 107, 53, 0.15);
+      transform: scale(1.02);
+      box-shadow: 0 10px 25px rgba(255, 107, 53, 0.2);
     }
 
-    a {
-        display: inline-block;
-        padding: 8px 16px;
-        margin: 4px;
-        text-decoration: none;
-        border-radius: 5px;
-        color: white;
-        background-color: #4CAF50;
-        transition: background-color 0.3s;
+    tbody tr:nth-child(even) {
+      background: rgba(255, 255, 255, 0.03);
     }
 
-    a:hover {
-        background-color: #45a049;
+    tbody tr:nth-child(even):hover {
+      background: rgba(255, 107, 53, 0.15);
     }
 
-    .btn-deletar {
-        background-color: #f44336;
+    td {
+      padding: 15px;
+      color: #e0e0e0;
+      text-align: center;
+      vertical-align: middle;
+      font-weight: 400;
     }
 
-    .btn-deletar:hover {
-        background-color: #d32f2f;
+    td img {
+      border-radius: 50%;
+      border: 3px solid #ff6b35;
+      box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+      transition: all 0.3s ease;
+    }
+
+    td img:hover {
+      transform: scale(1.1);
+      border-color: #ffd700;
+      box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+    }
+
+    /* Estilização dos links de ação */
+    td a {
+      color: #ffd700;
+      text-decoration: none;
+      font-weight: 500;
+      padding: 8px 12px;
+      margin: 0 3px;
+      border-radius: 15px;
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
+      display: inline-block;
+      font-size: 0.85rem;
+    }
+
+    td a:hover {
+      background: rgba(255, 215, 0, 0.2);
+      border-color: #ffd700;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+    }
+
+    /* Cores específicas para cada ação */
+    td a[href*="listar"] {
+      color: #00ff41;
+      border-color: rgba(0, 255, 65, 0.3);
+    }
+
+    td a[href*="listar"]:hover {
+      background: rgba(0, 255, 65, 0.2);
+      border-color: #00ff41;
+      box-shadow: 0 5px 15px rgba(0, 255, 65, 0.3);
+    }
+
+    td a[href*="deletar"] {
+      color: #ff4757;
+      border-color: rgba(255, 71, 87, 0.3);
+    }
+
+    td a[href*="deletar"]:hover {
+      background: rgba(255, 71, 87, 0.2);
+      border-color: #ff4757;
+      box-shadow: 0 5px 15px rgba(255, 71, 87, 0.3);
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5rem;
+      }
+
+      table {
+        font-size: 0.85rem;
+      }
+
+      th, td {
+        padding: 10px 8px;
+      }
+
+      .btn-adicionar {
+        padding: 12px 24px;
+        font-size: 1rem;
+      }
+
+      td img {
+        width: 60px;
+        height: 60px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      table {
+        font-size: 0.75rem;
+      }
+
+      th, td {
+        padding: 8px 5px;
+      }
+
+      td img {
+        width: 50px;
+        height: 50px;
+      }
+
+      td a {
+        padding: 6px 8px;
+        font-size: 0.75rem;
+        margin: 1px;
+      }
+    }
+
+    /* Efeito especial para ranks */
+    td:nth-child(6) {
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Scrollbar personalizada */
+    ::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #ff6b35, #ff8c42);
+      border-radius: 10px;
+      border: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #ff8c42, #ffd700);
     }
   </style>
-
 </head>
 <body>
-<h1>Lista de ninjas</h1>
-<a class="btn-adicionar" th:href="@{/ninjas/ui/adicionar}">Adicionar Novo Ninja</a>
+<h1>Lista de Ninjas</h1>
+<a class="btn-adicionar" th:href="@{/ninjas/ui/adicionar}">🥷 Adicionar Novo Ninja</a>
 <table>
   <thead>
   <tr>
@@ -80,33 +312,30 @@
     <th>Idade</th>
     <th>Email</th>
     <th>Rank</th>
-    <th>Missoes</th>
+    <th>Missões</th>
+    <th>Ações</th>
   </tr>
   </thead>
   <tbody>
   <tr th:each ="ninja: ${ninjas}">
     <td th:text="${ninja.id}"></td>
-    <td> <img th:src="${ninja.imgUrl}" width="100" height="100"></td>
+    <td><img th:src="${ninja.imgUrl}" width="80" height="80" alt="Ninja"></td>
     <td th:text="${ninja.nome}"></td>
     <td th:text="${ninja.idade}"></td>
     <td th:text="${ninja.email}"></td>
     <td th:text="${ninja.rank}"></td>
     <td>
       <span th:if="${ninja.missoes}"><span th:text="${ninja.missoes.nome}"></span>, Dificuldade: <span th:text="${ninja.missoes.dificuldade}"></span></span>
-      <span th:if="${ninja.missoes == null}">Sem Missões cadastradas para o ninja</span>
+      <span th:if="${ninja.missoes == null}">Sem Missões</span>
     </td>
-
     <td>
-      <a th:href="@{/ninjas/ui/listar/{id}(id=${ninja.id})}">Ver Detalhes</a>
-      <a th:href="@{/ninjas/ui/#/{id}(id=${ninja.id})}">Alterar</a>
-      <a th:href="@{/ninjas/ui/deletar/{id}(id=${ninja.id})}">Deletar</a>
+      <a th:href="@{/ninjas/ui/listar/{id}(id=${ninja.id})}">👁️ Ver Detalhes</a>
+      <a th:href="@{/ninjas/ui/#/{id}(id=${ninja.id})}">✏️ Alterar</a>
+      <a th:href="@{/ninjas/ui/deletar/{id}(id=${ninja.id})}">🗑️ Deletar</a>
     </td>
-
   </tr>
   </tbody>
 </table>
-
-
 
 </body>
 </html>

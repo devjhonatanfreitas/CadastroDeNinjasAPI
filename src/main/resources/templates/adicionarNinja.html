@@ -4,71 +4,331 @@
     <title>Adicionar Ninja</title>
     <link rel="stylesheet" th:href="@{/css/styles.css}" />
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
             padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Efeito de particulas ninja no fundo */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(2px 2px at 20px 30px, #ffffff15, transparent),
+                radial-gradient(2px 2px at 40px 70px, #ff6b3515, transparent),
+                radial-gradient(1px 1px at 90px 40px, #ffd70015, transparent),
+                radial-gradient(1px 1px at 130px 80px, #00ff4115, transparent);
+            background-repeat: repeat;
+            background-size: 200px 150px;
+            animation: float 20s infinite linear;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes float {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-200px) translateY(-150px); }
         }
 
         h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 3rem;
+            font-weight: 700;
             text-align: center;
-            color: #333;
+            margin-bottom: 40px;
+            background: linear-gradient(45deg, #ff6b35, #ffd700, #ff6b35);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 3s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(255, 107, 53, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         .form-container {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            max-width: 400px;
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(15px);
+            border-radius: 25px;
+            box-shadow:
+                0 25px 50px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+            padding: 40px;
+            max-width: 450px;
             margin: auto;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .form-container::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff6b35, #ffd700, #ff6b35, #ff8c42);
+            background-size: 200% 200%;
+            border-radius: 25px;
+            z-index: -1;
+            animation: borderGlow 3s ease-in-out infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes borderGlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         label {
-            margin: 10px 0 5px;
+            margin: 20px 0 8px;
             display: block;
+            color: #e0e0e0;
+            font-weight: 500;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            position: relative;
+        }
+
+        label::before {
+            content: '🥷';
+            margin-right: 8px;
+            opacity: 0.7;
         }
 
         input {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #e0e0e0;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #ff6b35;
+            background: rgba(255, 107, 53, 0.1);
+            box-shadow:
+                0 0 20px rgba(255, 107, 53, 0.3),
+                inset 0 2px 10px rgba(255, 107, 53, 0.1);
+            transform: translateY(-2px);
+        }
+
+        input::placeholder {
+            color: rgba(224, 224, 224, 0.5);
+        }
+
+        input:hover {
+            border-color: rgba(255, 215, 0, 0.5);
+            transform: translateY(-1px);
         }
 
         button {
-            padding: 10px 15px;
+            padding: 18px 25px;
             border: none;
-            border-radius: 5px;
-            background-color: #4CAF50;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #ff6b35, #ff8c42);
             color: white;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s ease;
             width: 100%;
+            font-size: 1.2rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            box-shadow: 0 10px 25px rgba(255, 107, 53, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s ease;
         }
 
         button:hover {
-            background-color: #45a049;
+            background: linear-gradient(135deg, #ff8c42, #ffd700);
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(255, 107, 53, 0.4);
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        button:active {
+            transform: translateY(-1px);
         }
 
         .mensagem {
-            color: green;
+            color: #00ff41;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            font-weight: 500;
+            font-size: 1.1rem;
+            padding: 15px;
+            background: rgba(0, 255, 65, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+            backdrop-filter: blur(10px);
         }
 
         a {
             display: inline-block;
-            margin-top: 10px;
+            margin-top: 25px;
             text-decoration: none;
-            color: #4CAF50;
-            transition: color 0.3s;
+            color: #ffd700;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 12px 20px;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            background: rgba(255, 215, 0, 0.05);
+            text-align: center;
+            width: 100%;
+            letter-spacing: 0.5px;
+        }
+
+        a::before {
+            content: '⬅️ ';
+            margin-right: 8px;
         }
 
         a:hover {
-            color: #45a049;
+            color: #ffffff;
+            background: rgba(255, 215, 0, 0.2);
+            border-color: #ffd700;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+                margin-bottom: 30px;
+            }
+
+            .form-container {
+                padding: 30px 25px;
+                max-width: 90%;
+            }
+
+            input {
+                padding: 12px 18px;
+                font-size: 0.95rem;
+            }
+
+            button {
+                padding: 15px 20px;
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 25px;
+            }
+
+            .form-container {
+                padding: 25px 20px;
+            }
+
+            input {
+                padding: 10px 15px;
+                font-size: 0.9rem;
+            }
+
+            button {
+                padding: 12px 18px;
+                font-size: 1rem;
+            }
+
+            label {
+                font-size: 0.95rem;
+            }
+        }
+
+        /* Efeitos especiais para campos específicos */
+        input[type="email"]:focus {
+            border-color: #00ff41;
+            background: rgba(0, 255, 65, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+        }
+
+        input[type="number"]:focus {
+            border-color: #ffd700;
+            background: rgba(255, 215, 0, 0.1);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+        }
+
+        input[type="url"]:focus,
+        input#imgUrl:focus {
+            border-color: #ff4757;
+            background: rgba(255, 71, 87, 0.1);
+            box-shadow: 0 0 20px rgba(255, 71, 87, 0.3);
+        }
+
+        /* Scrollbar personalizada */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #ff6b35, #ff8c42);
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #ff8c42, #ffd700);
         }
     </style>
 </head>
@@ -78,21 +338,21 @@
     <div th:if="${mensagem}" class="mensagem" th:text="${mensagem}"></div>
     <form th:action="@{/ninjas/ui/salvar}" th:object="${ninja}" method="post">
         <label for="nome">Nome:</label>
-        <input type="text" id="nome" th:field="*{nome}" required />
+        <input type="text" id="nome" th:field="*{nome}" placeholder="Digite o nome do ninja..." required />
 
         <label for="email">Email:</label>
-        <input type="email" id="email" th:field="*{email}" required />
+        <input type="email" id="email" th:field="*{email}" placeholder="Digite o email do ninja..." required />
 
         <label for="imgUrl">URL da Imagem:</label>
-        <input type="text" id="imgUrl" th:field="*{imgUrl}" required />
+        <input type="text" id="imgUrl" th:field="*{imgUrl}" placeholder="Cole a URL da imagem..." required />
 
         <label for="idade">Idade:</label>
-        <input type="number" id="idade" th:field="*{idade}" required />
+        <input type="number" id="idade" th:field="*{idade}" placeholder="Digite a idade..." required />
 
         <label for="rank">Rank:</label>
-        <input type="text" id="rank" th:field="*{rank}" />
+        <input type="text" id="rank" th:field="*{rank}" placeholder="Ex: Genin, Chunin, Jonin..." />
 
-        <button type="submit">Cadastrar Ninja</button>
+        <button type="submit">🥷 Cadastrar Ninja</button>
     </form>
     <a th:href="@{/ninjas/ui/listar}">Voltar para a lista de ninjas</a>
 </div>
